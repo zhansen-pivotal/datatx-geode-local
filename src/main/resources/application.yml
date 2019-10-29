@@ -1,0 +1,7 @@
+---
+spring:
+  data:
+    gemfire:
+      security:
+        username: admin
+        password: admin
