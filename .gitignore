@@ -19,6 +19,11 @@ target/
 *.iml
 *.ipr
 
+### Maven ###
+mvnw.cmd
+.mvn
+mvnw
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -29,3 +34,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### GemFire ###
+locator10334view.dat
+locator10334views.log
