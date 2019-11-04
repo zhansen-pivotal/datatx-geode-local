@@ -17,10 +17,12 @@ import java.util.UUID;
 
 public class TestSecurityManager extends SecurityManagerSupport {
 
-  private static final String GEMFIRE_SECURITY_USERNAME_PROPERTY = "security-username";
-  private static final String GEMFIRE_SECURITY_PASSWORD_PROPERTY = "security-password";
-  private static final String SPRING_SECURITY_USERNAME_PROPERTY = "spring.data.gemfire.security.username";
-  private static final String SPRING_SECURITY_PASSWORD_PROPERTY = "spring.data.gemfire.security.password";
+  public static final String GEMFIRE_SECURITY_USERNAME_PROPERTY = "security-username";
+  public static final String GEMFIRE_SECURITY_PASSWORD_PROPERTY = "security-password";
+  public static final String SPRING_SECURITY_USERNAME_PROPERTY = "spring.data.gemfire.security" +
+          ".username";
+  public static final String SPRING_SECURITY_PASSWORD_PROPERTY = "spring.data.gemfire.security" +
+          ".password";
 
   private final Environment environment;
 

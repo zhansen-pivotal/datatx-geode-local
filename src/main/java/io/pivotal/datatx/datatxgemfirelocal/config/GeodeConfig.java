@@ -2,6 +2,7 @@ package io.pivotal.datatx.datatxgemfirelocal.config;
 
 
 import io.pivotal.datatx.datatxgemfirelocal.security.TestSecurityManager;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.geode.cache.GemFireCache;
 import org.apache.geode.security.SecurityManager;
 import org.springframework.context.annotation.Bean;
@@ -14,22 +15,25 @@ import org.springframework.data.gemfire.config.annotation.*;
 @EnableManager
 @EnableLogging(logFile = "spring-geode-server.log")
 @EnablePdx(readSerialized = true)
+@Slf4j
 public class GeodeConfig {
 
-  public static final String TEST_REGION = "test";
+  public static final String DEFAULT_REGION = "default";
 
-  @Bean
+  @Bean("securityManager")
   SecurityManager testSecurityManager(Environment environment) {
     return new TestSecurityManager(environment);
   }
 
-  @Bean(TEST_REGION)
-  ReplicatedRegionFactoryBean<String, String> testRegion(GemFireCache gemFireCache){
-    ReplicatedRegionFactoryBean<String,String> testRegion = new ReplicatedRegionFactoryBean<>();
-    testRegion.setCache(gemFireCache);
-    testRegion.setClose(false);
-    testRegion.setName(TEST_REGION);
-    return testRegion;
+  @Bean(DEFAULT_REGION)
+  ReplicatedRegionFactoryBean<String, String> defaultRegion(GemFireCache gemFireCache) {
+    log.info("GeodeConfig.defaultRegion : initializing REPLICATE region {}", DEFAULT_REGION);
+    ReplicatedRegionFactoryBean<String, String> defaultRegion = new ReplicatedRegionFactoryBean<>();
+    defaultRegion.setCache(gemFireCache);
+    defaultRegion.setClose(false);
+    defaultRegion.setName(DEFAULT_REGION);
+    log.info("GeodeConfig.defaultRegion : initialized REPLICATE region : {}", DEFAULT_REGION);
+    return defaultRegion;
   }
 
 }
