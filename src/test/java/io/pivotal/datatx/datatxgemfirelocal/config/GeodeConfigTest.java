@@ -1,20 +1,16 @@
 package io.pivotal.datatx.datatxgemfirelocal.config;
 
-import io.pivotal.datatx.datatxgemfirelocal.security.TestSecurityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.geode.cache.Region;
-import org.apache.geode.security.SecurityManager;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Properties;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,33 +23,6 @@ public class GeodeConfigTest {
   @Autowired
   @Qualifier(GeodeConfig.DEFAULT_REGION)
   Region<String, String> defaultRegion;
-
-  @Autowired
-  @Qualifier("securityManager")
-  SecurityManager testSecurityManager;
-
-  @Autowired
-  Environment environment;
-
-
-  private Properties getCredentials() {
-    Properties provided = new Properties();
-    provided.setProperty(TestSecurityManager.GEMFIRE_SECURITY_USERNAME_PROPERTY,
-            environment.getProperty(TestSecurityManager.SPRING_SECURITY_USERNAME_PROPERTY));
-    provided.setProperty(TestSecurityManager.GEMFIRE_SECURITY_PASSWORD_PROPERTY,
-            environment.getProperty(TestSecurityManager.SPRING_SECURITY_PASSWORD_PROPERTY));
-    return provided;
-  }
-
-  @Test
-  public void testThatAuthenticationWired() {
-    assertNotNull(testSecurityManager.authenticate(getCredentials()));
-  }
-
-  @Test
-  public void testThatAuthorizationWired() {
-    assertTrue(testSecurityManager.authorize(getCredentials(), null));
-  }
 
   @Test
   public void testThatOurCacheAndRegionAreConfigured() {
